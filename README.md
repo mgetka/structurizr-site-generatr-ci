@@ -6,4 +6,4 @@ The issue has been filed and closed in 2016, Since then, and up until today, mor
 
 In the case of structurizr-site-generatr, the issue drills down to the fact that the underlying ubuntu image, symlinks _dash_ as `/bin/sh`.
 
-Image backed by this repository, makes only two, small changes - points `/bin/sh` to _bash_, and redefines the entrypoint as shell. And this allow builds in the GitLab CI environment.
+Image backed by this repository, makes one small changes - points `/bin/sh` to _bash_ - this allow builds in the GitLab CI environment. On top of that, it also changes the entrypoint to shell and places the main executable on PATH - it makes the image better suited for the CI use cases.
