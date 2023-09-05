@@ -6,7 +6,7 @@ The issue has been filed and closed in 2016, Since then, and up until today, mor
 
 In the case of structurizr-site-generatr, the issue drills down to the fact that the underlying ubuntu image, symlinks _dash_ as `/bin/sh`.
 
-Image backed by this repository, makes one small changes - points `/bin/sh` to _bash_ - this allow builds in the GitLab CI environment. On top of that, it also changes the entrypoint to shell and places the main executable on PATH.
+Image backed by this repository, makes one small changes - points `/bin/sh` to _bash_ - this allow builds in the GitLab CI environment. On top of that, it also removes the entrypoint and places the main executable on PATH.
 
 > [!NOTE]\
 > At this point I don't really know what is the issue and whether this image can be anyhow helpful. I have created the image while I was troubleshooting structurizr site builds with a dated gitlab-runner (13.7.0) backed by unknown version of docker engine - definitely dated as well.
@@ -14,3 +14,22 @@ Image backed by this repository, makes one small changes - points `/bin/sh` to _
 > Using this image, I at least managed to execute any action in the runner. But still - no success. At first, I encountered some weird permissions issues, and after that java refused to cooperate stating that the system is out of resources... any resources.
 >
 > My last lead is [this issue](https://github.com/adoptium/temurin-build/issues/3020#issuecomment-1172892168) and negotiation of runner update ¯\\\_(ツ)\_/¯
+
+> [!NOTE]\
+> After updating the gitlab-runner to 16.3.0 and docker engine to 24.0.5 I can finally conclude that the image proves to be useful!
+
+Using this image, one can render the site using CI config like following:
+
+```yaml
+site:
+  image: ghcr.io/mgetka/structurizr-site-generatr-ci:1.1.4
+  stage: build
+  script:
+    - structurizr-site-generatr generate-site -w workspace.dsl --assets-dir assets
+  artifacts:
+    paths:
+      - build
+```
+
+> [!WARNING]\
+> For the whole thing to work, you need to have moderately recent Docker Engine (>20.10.0) installed alongside the GitLab runner.
