@@ -7,4 +7,4 @@ RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 RUN ln -s /opt/structurizr-site-generatr/bin/structurizr-site-generatr /bin/structurizr-site-generatr
 
 USER generatr
-ENTRYPOINT ["/bin/sh"]
+ENTRYPOINT []
