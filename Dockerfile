@@ -1,4 +1,4 @@
-FROM ghcr.io/avisi-cloud/structurizr-site-generatr:1.1.4
+FROM ghcr.io/avisi-cloud/structurizr-site-generatr:1.3.0
 
 USER root
 
