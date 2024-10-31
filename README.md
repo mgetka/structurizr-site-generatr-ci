@@ -14,7 +14,7 @@ Using this image, one can render the site using CI config like following:
 
 ```yaml
 site:
-  image: ghcr.io/mgetka/structurizr-site-generatr-ci:1.3.0
+  image: ghcr.io/mgetka/structurizr-site-generatr-ci:1.5.0
   stage: build
   script:
     - structurizr-site-generatr generate-site -w workspace.dsl --assets-dir assets
